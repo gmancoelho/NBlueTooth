@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- TODO quando revisar as cores criar por paleta e componentes referenciando paleta-->
+    <color name="color_default_white">#FFFFFF</color>
+    <color name="color_default_white_transparent">#AAFFFFFF</color>
+    <color name="color_default_orange">#FFAA00</color>
+    <color name="color_default_orange_text">#FFAA00</color>
+    <color name="color_default_orange_dark">#df8504</color>
+    <color name="color_default_grey">#d8d8d8</color>
+    <color name="orange_status_bar">#df9604</color>
+    <color name="color_default_orange_transparent">#AAFFA910</color>
+    <color name="color_default_yellow">#ECCB67</color>
+    <color name="color_default_yellow_transparent">#AAECCB67</color>
+    <color name="color_default_red">#F15A24</color>
+    <color name="color_default_red_dark">#da5603</color>
+    <color name="color_default_green">#6DC6AC</color>
+    <color name="color_default_green_dark">#4fa67f</color>
+    <color name="color_default_green_transparent">#b550e3c2</color>
+    <color name="color_default_hint">#448AFF</color>
+    <color name="color_default_spinner_hint">#969696</color>
+
+    <color name="color_terra_cotta">#d25a2b</color>
+
+    <color name="color_severity_high">@color/color_default_red</color>
+    <color name="color_severity_medium">@color/color_default_orange</color>
+    <color name="color_severity_low">@color/color_default_green</color>
+    <color name="color_severity_none">#686868</color>
+
+    <color name="grey">#B3B3B3</color>
+    <color name="grey2">#9b9b9b</color>
+    <color name="grey_black">#333333</color>
+    <color name="grey_dark">#4D4D4D</color>
+    <color name="grey_dark2">#5d5d5d</color>
+    <color name="grey_light">#E6E6E6</color>
+    <color name="grey_light2">#EDEDED</color>
+    <color name="grey_very_light">#F2F2F2</color>
+
+    <color name="greyish_brown">#4e4e4e</color>
+
+    <!---->
+    <color name="color_default_grey_very_light">#F2F2F2</color>
+
+    <color name="color_default_text_title">#777777</color>
+    <color name="color_default_text_description">#AAAAAA</color>
+    <color name="color_default_grey_light">#B3B3B3</color>
+    <color name="color_default_grey_button">#4D4D4D</color>
+    <color name="color_default_grey_button_transparent">#994D4D4D</color>
+    <color name="color_default_grey_background">#F5F5F5</color>
+    <color name="color_default_transparent_background">#99FFFFFF</color>
+
+    <color name="color_defaut_google_button_enebled">#D34836</color>
+    <color name="color_defaut_google_button_disabled">#99D34836</color>
+
+    <color name="color_facebook_button_enebled">#3b5998</color>
+    <color name="color_facebook_button_pressed">#afbdd4</color>
+    <color name="color_facebook_button_disabled">#6d84b4</color>
+
+    <!-- TODO: review need -->
+    <color name="colorPrimary">@color/color_default_orange</color>
+    <color name="colorPrimaryDark">#df9604</color>
+    <color name="colorPrimaryLight">#ECCB67</color>
+    <color name="colorAccent">@color/color_default_hint</color>
+    <color name="colorPrimaryTextTitle">#FF5722</color>
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#727272</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#B6B6B6</color>
+
+    <color name="qr_delimitator">#8000</color>
+
+
+    <color name="cardViewBackground">#ECF0F3</color>
+    <color name="listViewBackground">#ECF0F3</color>
+    <color name="listViewBackgroundBorder">#B5CDDF</color>
+
+
+
+</resources>

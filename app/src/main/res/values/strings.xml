@@ -1,0 +1,21 @@
+<resources>
+
+
+
+    <string name="app_name">Nexer Bluetooth</string>
+
+    <string name="bluetoothNotSupported">Bluetooth NOT support</string>
+    <string name="bluetoothNotEnabled">Bluetooth NOT enabled</string>
+    <string name="bluetoothDiscovery">Bluetooth is currently in device discovery process.</string>
+    <string name="bluetoothEnabled">Bluetooth is enabled.</string>
+
+    <string name="select_device">Select Device</string>
+    <string name="scanning">Scanning</string>
+    <string name="scan">Scan</string>
+    <string name="cancel">Cancel</string>
+    <string name="paired">Paired</string>
+
+    <string name="no_device"> No Device Connected</string>
+    <string name="device">Connected Device: </string>
+
+</resources>
