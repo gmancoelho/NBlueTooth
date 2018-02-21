@@ -245,11 +245,14 @@ public class OBDDeviceChatService implements OBDDeviceRequestInterface {
                     Log.d(TAG, "MESSAGE_STATE_CHANGE: " + bluetoothMessage.arg1);
                     switch (bluetoothMessage.arg1) {
                         case BluetoothChatService.STATE_CONNECTED:
+
                             notifyBluetoothStateChangesToAll("onDeviceStateConnected");
                             break;
+
                         case BluetoothChatService.STATE_CONNECTING:
                             notifyBluetoothStateChangesToAll("onDeviceStateConnecting");
                             break;
+
                         case BluetoothChatService.STATE_LISTEN:
                         case BluetoothChatService.STATE_NONE:
                             notifyBluetoothStateChangesToAll(

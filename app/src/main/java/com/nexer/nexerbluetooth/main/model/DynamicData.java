@@ -1,17 +1,21 @@
 package com.nexer.nexerbluetooth.main.model;
 
 
+import com.nexer.nexerbluetooth.main.aux.Constants;
+
+import java.math.BigInteger;
+
 public class DynamicData {
 
     // Dynamic Data from OBD
 
     private String sourceId;
-    private int sequenceId;
-    private int eventType;
-    private int eventCode;
+    private BigInteger sequenceId;
+    private BigInteger eventType;
+    private BigInteger eventCode;
     private String date;
     private String time;
-    private int checksum;
+    private BigInteger checksum;
 
     // ------- Events Data --------
 
@@ -20,9 +24,9 @@ public class DynamicData {
     private String engineTemperature;
     private String fuelLevel;
     private float voltage;
-    private int odometer;
-    private int totalFuelUsage;
-    private int engineHours;
+    private BigInteger odometer;
+    private BigInteger totalFuelUsage;
+    private BigInteger engineHours;
     private boolean malfunction;
     private String vin;
 
@@ -33,40 +37,40 @@ public class DynamicData {
     public DynamicData() {
 
         this.sourceId = Constants.NULL_STR;
-        this.sequenceId = -1;
-        this.eventType = -1;
-        this.eventCode = -1;
-        this.date = date;
-        this.time = time;
-        this.checksum = -1;
-        this.speed = speed;
-        this.rpm = rpm;
-        this.engineTemperature = engineTemperature;
-        this.fuelLevel = fuelLevel;
-        this.voltage = -1.0;
-        this.odometer = -1;
-        this.totalFuelUsage = -1;
-        this.engineHours = -1;
-        this.malfunction = malfunction;
-        this.vin = "-";
+        this.sequenceId = BigInteger.ZERO;
+        this.eventType = BigInteger.ZERO;
+        this.eventCode = BigInteger.ZERO;
+        this.date = Constants.NULL_STR;
+        this.time = Constants.NULL_STR;
+        this.checksum = BigInteger.ZERO;
+        this.speed = Constants.NULL_STR;
+        this.rpm = Constants.NULL_STR;
+        this.engineTemperature = Constants.NULL_STR;
+        this.fuelLevel = Constants.NULL_STR;
+        this.voltage = -1;
+        this.odometer = BigInteger.ZERO;
+        this.totalFuelUsage = BigInteger.ZERO;
+        this.engineHours = BigInteger.ZERO;
+        this.malfunction = false;
+        this.vin = Constants.NULL_STR;
 
     }
 
     public DynamicData(String sourceId,
-                       int sequenceId,
-                       int eventType,
-                       int eventCode,
+                       BigInteger sequenceId,
+                       BigInteger eventType,
+                       BigInteger eventCode,
                        String date,
                        String time,
-                       int checksum,
+                       BigInteger checksum,
                        String speed,
                        String rpm,
                        String engineTemperature,
                        String fuelLevel,
                        float voltage,
-                       int odometer,
-                       int totalFuelUsage,
-                       int engineHours,
+                       BigInteger odometer,
+                       BigInteger totalFuelUsage,
+                       BigInteger engineHours,
                        boolean malfunction,
                        String vin) {
 
@@ -97,15 +101,15 @@ public class DynamicData {
         this.sourceId = sourceId;
     }
 
-    public void setSequenceId(int sequenceId) {
+    public void setSequenceId(BigInteger sequenceId) {
         this.sequenceId = sequenceId;
     }
 
-    public void setEventType(int eventType) {
+    public void setEventType(BigInteger eventType) {
         this.eventType = eventType;
     }
 
-    public void setEventCode(int eventCode) {
+    public void setEventCode(BigInteger eventCode) {
         this.eventCode = eventCode;
     }
 
@@ -117,7 +121,7 @@ public class DynamicData {
         this.time = time;
     }
 
-    public void setChecksum(int checksum) {
+    public void setChecksum(BigInteger checksum) {
         this.checksum = checksum;
     }
 
@@ -141,15 +145,15 @@ public class DynamicData {
         this.voltage = voltage;
     }
 
-    public void setOdometer(int odometer) {
+    public void setOdometer(BigInteger odometer) {
         this.odometer = odometer;
     }
 
-    public void setTotalFuelUsage(int totalFuelUsage) {
+    public void setTotalFuelUsage(BigInteger totalFuelUsage) {
         this.totalFuelUsage = totalFuelUsage;
     }
 
-    public void setEngineHours(int engineHours) {
+    public void setEngineHours(BigInteger engineHours) {
         this.engineHours = engineHours;
     }
 
@@ -165,20 +169,19 @@ public class DynamicData {
     // Getter METHODS
     //==========================================================================
 
-
     public String getSourceId() {
         return sourceId;
     }
 
-    public int getSequenceId() {
+    public BigInteger getSequenceId() {
         return sequenceId;
     }
 
-    public int getEventType() {
+    public BigInteger getEventType() {
         return eventType;
     }
 
-    public int getEventCode() {
+    public BigInteger getEventCode() {
         return eventCode;
     }
 
@@ -190,7 +193,7 @@ public class DynamicData {
         return time;
     }
 
-    public int getChecksum() {
+    public BigInteger getChecksum() {
         return checksum;
     }
 
@@ -214,15 +217,15 @@ public class DynamicData {
         return voltage;
     }
 
-    public int getOdometer() {
+    public BigInteger getOdometer() {
         return odometer;
     }
 
-    public int getTotalFuelUsage() {
+    public BigInteger getTotalFuelUsage() {
         return totalFuelUsage;
     }
 
-    public int getEngineHours() {
+    public BigInteger getEngineHours() {
         return engineHours;
     }
 
@@ -232,5 +235,32 @@ public class DynamicData {
 
     public String getVin() {
         return vin;
+    }
+
+    //==========================================================================
+    // ToString
+    //==========================================================================
+
+    @Override
+    public String toString() {
+        return "DynamicData{" +
+                "sourceId='" + sourceId + '\'' +
+                ", sequenceId=" + sequenceId +
+                ", eventType=" + eventType +
+                ", eventCode=" + eventCode +
+                ", date='" + date + '\'' +
+                ", time='" + time + '\'' +
+                ", checksum=" + checksum +
+                ", speed='" + speed + '\'' +
+                ", rpm='" + rpm + '\'' +
+                ", engineTemperature='" + engineTemperature + '\'' +
+                ", fuelLevel='" + fuelLevel + '\'' +
+                ", voltage=" + voltage +
+                ", odometer=" + odometer +
+                ", totalFuelUsage=" + totalFuelUsage +
+                ", engineHours=" + engineHours +
+                ", malfunction=" + malfunction +
+                ", vin='" + vin + '\'' +
+                '}';
     }
 }

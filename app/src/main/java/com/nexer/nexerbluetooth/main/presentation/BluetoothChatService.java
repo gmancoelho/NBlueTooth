@@ -513,12 +513,16 @@ public class BluetoothChatService {
          */
         public void write(byte[] buffer) {
             try {
+
                 mmOutStream.write(buffer);
+
+                Log.e(TAG, "writing in OBD");
 
                 // Share the sent message back to the UI Activity
                 mHandler.obtainMessage(BluetoothChatService.MESSAGE_WRITE,
                         -1, -1, buffer)
                         .sendToTarget();
+
             } catch (IOException e) {
                 Log.e(TAG, "exception during write", e);
             }
