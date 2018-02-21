@@ -3,143 +3,234 @@ package com.nexer.nexerbluetooth.main.model;
 
 public class DynamicData {
 
-    // Acquired info
-    private int speed;
-    private int rpm;
-    private int engineTemperature;
-    private int intakeAirTemperature;
-    private double throttlePosition;
-    private double loadPercentage;
-    private int map;
-    private int maf;
+    // Dynamic Data from OBD
 
-    // Not used
-    private int fuelStatus1;
-    private int fuelStatus2;
-    private long distanceWithMilOn;
+    private String sourceId;
+    private int sequenceId;
+    private int eventType;
+    private int eventCode;
+    private String date;
+    private String time;
+    private int checksum;
 
-    // Mileage and distances
-    private long tripMileage;
+    // ------- Events Data --------
 
-    // Processed info
-    private int gearEngaged;
+    private String speed;
+    private String rpm;
+    private String engineTemperature;
+    private String fuelLevel;
+    private float voltage;
+    private int odometer;
+    private int totalFuelUsage;
+    private int engineHours;
+    private boolean malfunction;
+    private String vin;
+
+    //==========================================================================
+    // SETTER METHODS
+    //==========================================================================
 
     public DynamicData() {
 
+        this.sourceId = Constants.NULL_STR;
+        this.sequenceId = -1;
+        this.eventType = -1;
+        this.eventCode = -1;
+        this.date = date;
+        this.time = time;
+        this.checksum = -1;
+        this.speed = speed;
+        this.rpm = rpm;
+        this.engineTemperature = engineTemperature;
+        this.fuelLevel = fuelLevel;
+        this.voltage = -1.0;
+        this.odometer = -1;
+        this.totalFuelUsage = -1;
+        this.engineHours = -1;
+        this.malfunction = malfunction;
+        this.vin = "-";
+
+    }
+
+    public DynamicData(String sourceId,
+                       int sequenceId,
+                       int eventType,
+                       int eventCode,
+                       String date,
+                       String time,
+                       int checksum,
+                       String speed,
+                       String rpm,
+                       String engineTemperature,
+                       String fuelLevel,
+                       float voltage,
+                       int odometer,
+                       int totalFuelUsage,
+                       int engineHours,
+                       boolean malfunction,
+                       String vin) {
+
+        this.sourceId = sourceId;
+        this.sequenceId = sequenceId;
+        this.eventType = eventType;
+        this.eventCode = eventCode;
+        this.date = date;
+        this.time = time;
+        this.checksum = checksum;
+        this.speed = speed;
+        this.rpm = rpm;
+        this.engineTemperature = engineTemperature;
+        this.fuelLevel = fuelLevel;
+        this.voltage = voltage;
+        this.odometer = odometer;
+        this.totalFuelUsage = totalFuelUsage;
+        this.engineHours = engineHours;
+        this.malfunction = malfunction;
+        this.vin = vin;
     }
 
     //==========================================================================
     // SETTER METHODS
     //==========================================================================
 
-    public void setSpeed(int speed) {
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
+    }
+
+    public void setSequenceId(int sequenceId) {
+        this.sequenceId = sequenceId;
+    }
+
+    public void setEventType(int eventType) {
+        this.eventType = eventType;
+    }
+
+    public void setEventCode(int eventCode) {
+        this.eventCode = eventCode;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public void setChecksum(int checksum) {
+        this.checksum = checksum;
+    }
+
+    public void setSpeed(String speed) {
         this.speed = speed;
     }
 
-    public void setRpm(int rpm) {
+    public void setRpm(String rpm) {
         this.rpm = rpm;
     }
 
-    public void setEngineTemperature(int engineTemperature) {
+    public void setEngineTemperature(String engineTemperature) {
         this.engineTemperature = engineTemperature;
     }
 
-    public void setIntakeAirTemperature(int intakeAirTemperature) {
-        this.intakeAirTemperature = intakeAirTemperature;
+    public void setFuelLevel(String fuelLevel) {
+        this.fuelLevel = fuelLevel;
     }
 
-    public void setThrottlePosition(double throttlePosition) {
-        this.throttlePosition = throttlePosition;
+    public void setVoltage(float voltage) {
+        this.voltage = voltage;
     }
 
-    public void setLoadPercentage(double loadPercentage) {
-        this.loadPercentage = loadPercentage;
+    public void setOdometer(int odometer) {
+        this.odometer = odometer;
     }
 
-    public void setMap(int map) {
-        this.map = map;
+    public void setTotalFuelUsage(int totalFuelUsage) {
+        this.totalFuelUsage = totalFuelUsage;
     }
 
-    public void setMaf(int maf) {
-        this.maf = maf;
+    public void setEngineHours(int engineHours) {
+        this.engineHours = engineHours;
     }
 
-    public void setFuelStatus1(int fuelStatus1) {
-        this.fuelStatus1 = fuelStatus1;
+    public void setMalfunction(boolean malfunction) {
+        this.malfunction = malfunction;
     }
 
-    public void setFuelStatus2(int fuelStatus2) {
-        this.fuelStatus2 = fuelStatus2;
+    public void setVin(String vin) {
+        this.vin = vin;
     }
-
-    public void setTripMileage(long tripMileage) {
-        this.tripMileage = tripMileage;
-    }
-
-    public void setDistanceWithMilOn(long distanceWithMilOn) {
-        this.distanceWithMilOn = distanceWithMilOn;
-    }
-
-    public void setGearEngaged(int gearEngaged) {
-        this.gearEngaged = gearEngaged;
-    }
-
 
     //==========================================================================
-    // GETTER METHODS
+    // Getter METHODS
     //==========================================================================
 
-    public int getSpeed() {
-        return this.speed;
+
+    public String getSourceId() {
+        return sourceId;
     }
 
-    public int getRpm() {
-        return this.rpm;
+    public int getSequenceId() {
+        return sequenceId;
     }
 
-    public int getEngineTemperature() {
-        return this.engineTemperature;
+    public int getEventType() {
+        return eventType;
     }
 
-    public int getIntakeAirTemperature() {
-        return this.intakeAirTemperature;
+    public int getEventCode() {
+        return eventCode;
     }
 
-    public double getThrottlePosition() {
-        return this.throttlePosition;
+    public String getDate() {
+        return date;
     }
 
-    public double getLoadPercentage() {
-        return this.loadPercentage;
+    public String getTime() {
+        return time;
     }
 
-    public int getMap() {
-        return this.map;
+    public int getChecksum() {
+        return checksum;
     }
 
-    public int getMaf() {
-        return this.maf;
+    public String getSpeed() {
+        return speed;
     }
 
-    public int getFuelStatus1() {
-        return this.fuelStatus1;
+    public String getRpm() {
+        return rpm;
     }
 
-    public int getFuelStatus2() {
-        return this.fuelStatus2;
+    public String getEngineTemperature() {
+        return engineTemperature;
     }
 
-    public long getTripMileage() {
-        return this.tripMileage;
+    public String getFuelLevel() {
+        return fuelLevel;
     }
 
-    public long getDistanceWithMilOn() {
-        return this.distanceWithMilOn;
+    public float getVoltage() {
+        return voltage;
     }
 
-    public int getGearEngaged() {
-        return this.gearEngaged;
+    public int getOdometer() {
+        return odometer;
     }
 
+    public int getTotalFuelUsage() {
+        return totalFuelUsage;
+    }
 
+    public int getEngineHours() {
+        return engineHours;
+    }
+
+    public boolean isMalfunction() {
+        return malfunction;
+    }
+
+    public String getVin() {
+        return vin;
+    }
 }
