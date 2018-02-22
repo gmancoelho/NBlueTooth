@@ -1,22 +1,18 @@
 package com.nexer.nexerbluetooth.main.obd;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.nexer.nexerbluetooth.main.aux.ChinaAux;
 import com.nexer.nexerbluetooth.main.aux.Constants;
+import com.nexer.nexerbluetooth.main.aux.NyitechMessages;
 import com.nexer.nexerbluetooth.main.model.CompletedTrip;
 import com.nexer.nexerbluetooth.main.model.DynamicData;
-import com.nexer.nexerbluetooth.main.presentation.BluetoothChatService;
-
-import org.json.JSONObject;
+import com.nexer.nexerbluetooth.main.BluetoothChatService;
 
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.Calendar;
 
 /**
  * Created by guilhermecoelho on 2/20/18.
@@ -46,7 +42,7 @@ public class NyitechDriver implements DeviceDriverInterface {
 
     // MESSAGES
 
-    private boolean QUERYNEXTMESSAGE = true;
+    private boolean QUERYLASTDAY = true;
 
     // Variable used to see difference  in dates between devices
     private static long mDateDifference = 0;
@@ -169,6 +165,22 @@ public class NyitechDriver implements DeviceDriverInterface {
 
         String request = "";
 
+        String date = new SimpleDateFormat("MMddyy").format(Calendar.getInstance().getTime());
+        String time = new SimpleDateFormat("HHmmss").format(Calendar.getInstance().getTime());
+
+        request =
+                "APP_0000000000001" + // APP ID
+                Constants.COMMA + Constants.COMMA + // SKIP SEQUENCEID
+                NyitechMessages.QUERY_LASTDAY + // 4,1 CODE FOR LOG OF TODAY
+                Constants.COMMA + date + // DATE
+                Constants.COMMA + time + // TIME
+                Constants.COMMA +
+                Constants.COMMA;// SKIP EVENT DATA
+
+        String checkSum = ChinaAux.getInstance().checkSum(request);
+
+        request = Constants.BEGINCHAR + request + checkSum + Constants.ENDCHAR;
+        // Log.w(TAG,request);
 
         sendMessageToDevice(request);
     }
@@ -186,6 +198,22 @@ public class NyitechDriver implements DeviceDriverInterface {
     private void resetDevice() {
 
         String request = "";
+
+        String date = new SimpleDateFormat("MMddyy").format(Calendar.getInstance().getTime());
+        String time = new SimpleDateFormat("HHmmss").format(Calendar.getInstance().getTime());
+
+        request = Constants.BEGINCHAR +
+                "APP_0000000000001" + // APP ID
+                Constants.COMMA + Constants.COMMA + // SKIP SEQUENCEID
+                NyitechMessages.RESET + // 4,1 CODE FOR LOG OF TODAY
+                Constants.COMMA + date + // DATE
+                Constants.COMMA + time + // TIME
+                Constants.COMMA + Constants.COMMA;// SKIP EVENT DATA
+
+         String checkSum = ChinaAux.getInstance().checkSum(request);
+
+        request += checkSum + // CHECKSUM
+                Constants.ENDCHAR;
 
         sendMessageToDevice(request);
     }
@@ -231,11 +259,13 @@ public class NyitechDriver implements DeviceDriverInterface {
     private void receivedCompletedMessage(String message) {
 
         // delete special chars from message
-        message = ChinaAux.getInstance().removeSpecialCharsFrom(message);
+        //Log.d(TAG,"Message read :" + message);
 
-        Log.d(TAG,"Message read :" + message);
+        String msg = ChinaAux.getInstance().removeSpecialCharsFrom(message);
 
-        DynamicData dynamicData = ChinaAux.getInstance().parseReceivedDynamicData(message);
+        Log.d(TAG,"Formatted Message read :" + msg);
+
+        DynamicData dynamicData = ChinaAux.getInstance().parseReceivedDynamicData(msg);
 
         this.squenceId = dynamicData.getSequenceId();
 
@@ -252,7 +282,7 @@ public class NyitechDriver implements DeviceDriverInterface {
 
             currentTrip.setData( listOfData );
 
-        } else if (  ChinaAux.getInstance().enginePowerUp(dynamicData) ) {
+        } else if (  ChinaAux.getInstance().engineShutDown(dynamicData) ) {
             // Engine is shutDown
 
             currentTrip.setEndTime(dynamicData.getDate() + "_" + dynamicData.getTime());
@@ -275,12 +305,15 @@ public class NyitechDriver implements DeviceDriverInterface {
             listOfData.add(dynamicData);
 
             currentTrip.setData( listOfData );
+
         }
 
         // Query for Next Message
+        queryNextEvent();
 
-        if (QUERYNEXTMESSAGE) {
-            queryNextEvent();
+        if (QUERYLASTDAY) {
+            queryLogForTheLastDay();
+            QUERYLASTDAY = false;
         }
 
     }

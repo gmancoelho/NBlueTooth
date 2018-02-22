@@ -1,13 +1,10 @@
-package com.nexer.nexerbluetooth.main.presentation;
+package com.nexer.nexerbluetooth.main;
 
 
         import java.io.IOException;
         import java.io.InputStream;
         import java.io.OutputStream;
         import java.util.UUID;
-
-        import org.json.JSONObject;
-        import org.json.JSONTokener;
 
         import android.bluetooth.BluetoothAdapter;
         import android.bluetooth.BluetoothDevice;
@@ -495,6 +492,7 @@ public class BluetoothChatService {
                     // Send the obtained bytes to the UI Activity
                     mHandler.obtainMessage(BluetoothChatService.MESSAGE_READ,
                             bytes, -1, buffer).sendToTarget();
+
                 } catch (IOException e) {
                     Log.e(TAG, "disconnected", e);
                     connectionLost();
@@ -516,7 +514,7 @@ public class BluetoothChatService {
 
                 mmOutStream.write(buffer);
 
-                Log.e(TAG, "writing in OBD");
+                //Log.i(TAG, "writing in OBD");
 
                 // Share the sent message back to the UI Activity
                 mHandler.obtainMessage(BluetoothChatService.MESSAGE_WRITE,

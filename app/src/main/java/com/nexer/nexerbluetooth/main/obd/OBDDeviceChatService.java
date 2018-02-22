@@ -7,13 +7,11 @@ import android.bluetooth.BluetoothDevice;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import com.nexer.nexerbluetooth.main.presentation.BluetoothChatService;
-import org.json.JSONObject;
+import com.nexer.nexerbluetooth.main.BluetoothChatService;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-
-import timber.log.Timber;
 
 public class OBDDeviceChatService implements OBDDeviceRequestInterface {
 

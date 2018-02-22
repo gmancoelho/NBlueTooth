@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
@@ -21,7 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.nexer.nexerbluetooth.main.BluetoothConnector;
+import com.nexer.nexerbluetooth.main.BluetoothChatService;
 import com.nexer.nexerbluetooth.main.obd.OBDDeviceChatService;
 
 import butterknife.BindView;
@@ -145,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this,deviceAddress,Toast.LENGTH_SHORT).show();
 
         mDeviceText.setText(deviceAddress);
-        btnConnectDisconnect.setEnabled(false);
 
         mChatService.setupBluetooth();
 

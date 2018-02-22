@@ -9,6 +9,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by guilhermecoelho on 2/20/18.
@@ -31,7 +36,7 @@ public class ChinaAux {
 
     // Private properties
 
-    private final String tag = "ChinaAux";
+    private final String TAG = "ChinaAux";
 
     // Private methods
 
@@ -56,7 +61,7 @@ public class ChinaAux {
         int rpm = 0;
         int engineTemperature = 0;
         String fuelLevel;
-        float voltage;
+        float volTAGe;
         int odometer;
         int totalFuelUsage;
         int engineHours;
@@ -97,9 +102,11 @@ public class ChinaAux {
 
         /// Event Definitions
 
-        if (datas[6] != null && message.contains(Constants.PIPE) ) {
+        if ( datas.length > 6 && datas[6] != null &&  datas[6].contains(Constants.PIPE) ) {
 
-            String[] events = message.split(Constants.PIPE);
+            Log.d(TAG,datas[6]);
+
+            String[] events = datas[6].split(Constants.PIPE);
 
             if (events[0] != null ) {
 
@@ -160,7 +167,6 @@ public class ChinaAux {
             }
         }
 
-        //Log.d(tag,data.toString());
 
         return  data;
     }
@@ -198,7 +204,19 @@ public class ChinaAux {
         assert !message.contains(Constants.BEGINCHAR);
         assert !message.contains(Constants.ENDCHAR);
 
-        return response;
+        String[] datas = response.split(Constants.COMMA);
+
+        ArrayList<String> list = new ArrayList<String>(Arrays.asList(datas));
+
+        list.remove(list.size()-1);
+
+        String s = list.get(0);
+
+        for(int i=1; i<list.size(); i++) {
+            s = s + "," + list.get(i);
+        }
+
+        return s;
     }
 
     public String createMessageToOBD(String message) {
@@ -210,5 +228,57 @@ public class ChinaAux {
 
         return response;
     }
+
+    // CheckSum
+
+    public String checkSum(String message) {
+
+        int checkSum = 0;
+
+        String hex = toHexString(message.getBytes());
+
+        //Log.d(TAG,"HexList: " + hex);
+
+        byte [] bytes = hexStringToByteArray(hex);
+
+        for(byte b : bytes){
+            checkSum += (0xff & b);
+        }
+
+        //Log.d(TAG,"CheckSum: " + checkSum);
+        String resp = String.format("%04X",checkSum & 0xffff);
+
+        assert resp.length() == 4;
+
+        return resp;
+    }
+
+    private String toHexString(byte[] ba) {
+
+        StringBuilder str = new StringBuilder();
+        for(int i = 0; i < ba.length; i++)
+            str.append(String.format("%x", ba[i]));
+        return str.toString();
+    }
+
+    private String fromHexString(String hex) {
+
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < hex.length(); i+=2) {
+            str.append((char) Integer.parseInt(hex.substring(i, i + 2), 16));
+        }
+        return str.toString();
+    }
+
+    private byte[] hexStringToByteArray(String s) {
+        int len = s.length();
+        byte[] data = new byte[len / 2];
+        for (int i = 0; i < len; i += 2) {
+            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
+                    + Character.digit(s.charAt(i+1), 16));
+        }
+        return data;
+    }
+
 
 }
