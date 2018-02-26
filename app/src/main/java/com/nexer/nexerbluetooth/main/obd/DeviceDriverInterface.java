@@ -2,6 +2,8 @@ package com.nexer.nexerbluetooth.main.obd;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public interface DeviceDriverInterface {
 
     // Configuration parameters
@@ -29,4 +31,9 @@ public interface DeviceDriverInterface {
 
     void sendMessageToDevice(String request);
 
+    interface View {
+
+        void onLogReceived(ArrayList<String> logs);
+
+    }
 }

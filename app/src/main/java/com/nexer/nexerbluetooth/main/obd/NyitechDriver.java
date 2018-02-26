@@ -1,5 +1,6 @@
 package com.nexer.nexerbluetooth.main.obd;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.nexer.nexerbluetooth.main.aux.ChinaAux;
@@ -42,7 +43,7 @@ public class NyitechDriver implements DeviceDriverInterface {
 
     // MESSAGES
 
-    private boolean QUERYLASTDAY = true;
+    private boolean QUERYLASTDAY = false;
 
     // Variable used to see difference  in dates between devices
     private static long mDateDifference = 0;
@@ -130,7 +131,7 @@ public class NyitechDriver implements DeviceDriverInterface {
     @Override
     public void sendMessageToDevice(String request) {
 
-        Log.d(TAG,"QUERY: " + request);
+        Log.d(TAG,"MESSAGE WRITTEN: " + request);
 
         // Check that we're actually connected before trying anything
         if (mBluetoothChatService.getState() !=
@@ -205,7 +206,7 @@ public class NyitechDriver implements DeviceDriverInterface {
         request = Constants.BEGINCHAR +
                 "APP_0000000000001" + // APP ID
                 Constants.COMMA + Constants.COMMA + // SKIP SEQUENCEID
-                NyitechMessages.RESET + // 4,1 CODE FOR LOG OF TODAY
+                NyitechMessages.RESET + // 8,1 CODE FOR RESET
                 Constants.COMMA + date + // DATE
                 Constants.COMMA + time + // TIME
                 Constants.COMMA + Constants.COMMA;// SKIP EVENT DATA
@@ -215,7 +216,7 @@ public class NyitechDriver implements DeviceDriverInterface {
         request += checkSum + // CHECKSUM
                 Constants.ENDCHAR;
 
-        sendMessageToDevice(request);
+        sendMessageToDevice("AT$SYSS<123456>=|||||||FFFF|*");
     }
 
     /**
@@ -267,6 +268,8 @@ public class NyitechDriver implements DeviceDriverInterface {
 
         DynamicData dynamicData = ChinaAux.getInstance().parseReceivedDynamicData(msg);
 
+        Log.d(TAG,"Data :" + dynamicData.toString());
+
         this.squenceId = dynamicData.getSequenceId();
 
         if (  ChinaAux.getInstance().enginePowerUp(dynamicData) ) {
@@ -305,16 +308,17 @@ public class NyitechDriver implements DeviceDriverInterface {
             listOfData.add(dynamicData);
 
             currentTrip.setData( listOfData );
-
         }
-
-        // Query for Next Message
-        queryNextEvent();
 
         if (QUERYLASTDAY) {
             queryLogForTheLastDay();
             QUERYLASTDAY = false;
         }
 
+        // Query for Next Message
+        queryNextEvent();
+
     }
+
+
 }

@@ -102,7 +102,7 @@ public class ChinaAux {
 
         /// Event Definitions
 
-        if ( datas.length > 6 && datas[6] != null &&  datas[6].contains(Constants.PIPE) ) {
+        if (  data.getEventType().intValue() == 2 &&  data.getEventCode().intValue() == 1) {
 
             Log.d(TAG,datas[6]);
 

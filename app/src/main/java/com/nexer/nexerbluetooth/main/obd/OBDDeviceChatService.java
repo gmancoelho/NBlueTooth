@@ -272,6 +272,7 @@ public class OBDDeviceChatService implements OBDDeviceRequestInterface {
 
                             mManufacturerDeviceDriver
                                     .parseDeviceResponse(readMessage);
+                            
                         }
                     }
 
@@ -298,7 +299,6 @@ public class OBDDeviceChatService implements OBDDeviceRequestInterface {
             }
         }
     };
-
 
     //==========================================================================
     // OBD DEVICE REQUEST INTERFACE METHODS
@@ -329,7 +329,6 @@ public class OBDDeviceChatService implements OBDDeviceRequestInterface {
                 lastTripTotalKm);
 
     }
-
 
     /**
      * Gets the vehicle VIN code

@@ -493,6 +493,7 @@ public class BluetoothChatService {
                     mHandler.obtainMessage(BluetoothChatService.MESSAGE_READ,
                             bytes, -1, buffer).sendToTarget();
 
+
                 } catch (IOException e) {
                     Log.e(TAG, "disconnected", e);
                     connectionLost();

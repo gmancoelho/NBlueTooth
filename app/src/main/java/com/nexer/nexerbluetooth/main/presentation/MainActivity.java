@@ -11,6 +11,8 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -21,14 +23,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nexer.nexerbluetooth.main.BluetoothChatService;
+import com.nexer.nexerbluetooth.main.obd.DeviceDriverInterface;
 import com.nexer.nexerbluetooth.main.obd.OBDDeviceChatService;
+import com.nexer.nexerbluetooth.main.presentation.log.LogAdapter;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import comunicacao.bluetooth.R;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DeviceDriverInterface.View {
 
     public static final int REQUEST_SELECT_DEVICE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
@@ -51,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.deviceName)
     TextView mDeviceText;
+
+
+    @BindView(R.id.recycler_view)
+    RecyclerView mReciclerView;
+
+    ArrayList<String> logLists;
 
     // Life Cycle
 
@@ -91,6 +103,17 @@ public class MainActivity extends AppCompatActivity {
 
         // Handle Disconnect & Connect button
         btnConnectDisconnect.setOnClickListener(deviceListener);
+
+        mReciclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mReciclerView.setLayoutManager(layoutManager);
+
+        logLists = new ArrayList<String>();
+
+        LogAdapter adapter = new LogAdapter(logLists, getApplicationContext());
+
+        mReciclerView.setAdapter(adapter);
 
     }
 
@@ -222,4 +245,11 @@ public class MainActivity extends AppCompatActivity {
     private void deviceIsConnected(String stringExtra) {
     }
 
+    @Override
+    public void onLogReceived(ArrayList<String> logs) {
+
+        logLists.addAll(logs);
+        listAdapter.notifyDataSetChanged();
+
+    }
 }
